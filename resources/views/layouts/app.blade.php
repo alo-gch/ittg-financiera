@@ -34,6 +34,19 @@
                             <a class="nav-link" href="{{ route('clients.index') }}">
                                 {{ __('Clients') }}
                             </a>
+
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ route('loans.index') }}">
+                                {{ __('Loans') }}
+                            </a>
+                            
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ route('importar') }}">
+                                {{ __('import') }}
+                            </a>
+
                         </li>
                     </ul>
 

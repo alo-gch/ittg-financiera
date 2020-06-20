@@ -29,3 +29,21 @@ Route::post('/clients', 'ClientsController@store')
     ->name('clients.store');
 Route::delete('/clients/{id}', 'ClientsController@destroy')
     ->name('clients.destroy');
+
+    Route::get('/loans', 'LoansController@index')
+    ->name('loans.index');
+     Route::get('/loans/new', 'LoansController@create')
+    ->name('loans.create');
+    Route::post('/store', 'LoansController@store')
+    ->name('loans.store');
+    Route::delete('/loans/{id}', 'LoansController@destroy')
+    ->name('loans.destroy');
+
+    Route::view('/import','import')
+    ->name('importar');	
+    Route::post('/upload','ClientsController@import');
+     Route::post('/import','ClientsController@import');
+
+     Route::get('/export','ClientsController@export');
+
+

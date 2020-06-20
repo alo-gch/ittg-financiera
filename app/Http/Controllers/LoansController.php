@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client;
 use Illuminate\Http\Request;
-use App\Imports\ClientsImport;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\ClientsExport;
+use App\Models\Loan;
+use App\Models\Client;
 
-class ClientsController extends Controller
+
+
+class LoansController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,11 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        $clients = Client::all();
-        return view('clients.index', [
-            'clients' => $clients,
-        ]);
+        //
+        $loans = Loan::all();
+        return view('loans.index',['loans' => $loans]);
+
+
     }
 
     /**
@@ -30,7 +31,11 @@ class ClientsController extends Controller
      */
     public function create()
     {
-        return view('clients.create');
+
+
+        $clients =Client::all();
+         return view('loans.create',compact('clients'));
+        //
     }
 
     /**
@@ -41,19 +46,34 @@ class ClientsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'  => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-        ]);
+    $request->validate([
+        'client_id' => 'required',
+        'cantidad' => 'required',
+        'numeropagos' => 'required',
+        'cuota' => 'required',
+        'totalapagar' => 'required',
+        'fechadeministracion' => 'required',
+        'fechadevencimiento' => 'required',
 
-        Client::create([
-            'name'  => $request->input('name'),
-            'phone' => $request->input('phone'),
-            'address' => $request->input('address'),
-        ]);
+    ]);
 
-        return redirect()->route('clients.index');
+
+
+        Loan::create([
+        'client_id' =>$request->input('client_id'),
+        'cantidad' =>$request->input('cantidad'),
+        'numeropagos' =>$request->input('numeropagos'),
+        'cuota' =>$request->input('cuota'),
+        'totalapagar' =>$request->input('totalapagar'),
+        'fechadeministracion' =>$request->input('fechadeministracion'),
+        'fechadevencimiento' =>$request->input('fechadevencimiento'),
+    ]);
+
+        return redirect()->route('loans.index');
+
+
+
+        //
     }
 
     /**
@@ -98,24 +118,11 @@ class ClientsController extends Controller
      */
     public function destroy($id)
     {
-        $client = Client::find($id);
+        $loan = Loan::find($id);
+        $loan -> delete();
+        return $loan;
 
-        $client->delete();
 
-        return $client;
+        //
     }
-
-    public function import(Request $request) 
-    {
-        Excel::import(new ClientsImport, $request->file('importacion'));
-        
-        return redirect('/')->with('success', 'All good!');
-    }
-
-    public function export() 
-    {
-        return Excel::download(new ClientsExport, 'users.xlsx');
-    }
-
-
 }
