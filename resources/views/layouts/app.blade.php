@@ -44,10 +44,15 @@
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ route('importar') }}">
-                                {{ __('import') }}
+                                {{ __('Import') }}
                             </a>
 
+
                         </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ route('exportar') }}">
+                                {{ __('Export') }}
+                            </a>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

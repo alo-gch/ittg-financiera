@@ -44,6 +44,7 @@ Route::delete('/clients/{id}', 'ClientsController@destroy')
     Route::post('/upload','ClientsController@import');
      Route::post('/import','ClientsController@import');
 
-     Route::get('/export','ClientsController@export');
+     Route::get('/export','ClientsController@export')
+      ->name('exportar');
 
 
